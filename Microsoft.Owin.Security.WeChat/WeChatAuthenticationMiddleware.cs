@@ -34,9 +34,11 @@ namespace Microsoft.Owin.Security.WeChat
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtecter);
             }
 
-            _httpClient = new HttpClient(ResolveHttpMessageHandler(Options));
-            _httpClient.Timeout = Options.BackchannelTimeout;
-            _httpClient.MaxResponseContentBufferSize = 1024 * 1024 * 10; // 10 MB
+            _httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
+            {
+                Timeout = Options.BackchannelTimeout,
+                MaxResponseContentBufferSize = 1024 * 1024 * 10 // 10 MB
+            };
         }
 
         protected override AuthenticationHandler<WeChatAuthenticationOptions> CreateHandler()
